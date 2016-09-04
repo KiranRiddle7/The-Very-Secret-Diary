@@ -1,6 +1,6 @@
 // Backbone Model
 
-var Blog = Backbone.Model.extend({
+var Note = Backbone.Model.extend({
 	defaults: {
 		author: '',
 		title: '',
@@ -11,17 +11,17 @@ var Blog = Backbone.Model.extend({
 
 // Backbone Collection
 
-var Blogs = Backbone.Collection.extend({});
+var Notes = Backbone.Collection.extend({});
 
-// instantiate two blogs
+// instantiate two notes
 /*
-var blog1 = new Blog({
+var note1 = new Note({
 	author: 'Kiran', 
 	title: 'Test', 
 	description: 'Hello'
 });
 
-var blog2 = new Blog({
+var note2 = new Note({
 	author: 'Kiran',
 	 title: 'Test2', 
 	 description: 'World'
@@ -30,13 +30,13 @@ var blog2 = new Blog({
 
 // instantiate a Collection
 
-var blogs = new Blogs([]);
+var notes = new Notes([]);
 
-// Backbone View for one blog
+// Backbone View for one note
 
-var BlogView = Backbone.View.extend({
+var NoteView = Backbone.View.extend({
  
- model: new Blog(),
+ model: new Note(),
  tagName: 'tr',
  initialize: function () {
    this.template = _.template($('.notes-list-template').html());
@@ -49,11 +49,11 @@ var BlogView = Backbone.View.extend({
 
 });
 
-// Backbone View for all blog
+// Backbone View for all note
 
-var BlogsView = Backbone.View.extend({
+var NotesView = Backbone.View.extend({
 
-model: blogs,
+model: notes,
 el: $('.notes-list'),
 initialize: function() {
 	this.model.on('add', this.render, this);
@@ -62,19 +62,19 @@ initialize: function() {
 render: function() {
 		var self = this;
 		this.$el.html('');
-		_.each(this.model.toArray(), function(blog) {
-			self.$el.append((new BlogView({model: blog})).render().$el);
+		_.each(this.model.toArray(), function(note) {
+			self.$el.append((new NoteView({model: note})).render().$el);
 		});
 		return this;
 	}
 
 });
 
-var blogsView = new BlogsView();
+var notesView = new NotesView();
 
 $(document).ready(function() {
 	$('.add-note').on('click', function() {
-		var blog = new Blog({
+		var note = new Note({
 			author: $('.author-input').val(),
 			title: $('.title-input').val(),
 			description: $('.description-input').val()
@@ -82,7 +82,7 @@ $(document).ready(function() {
 		$('.author-input').val('');
 		$('.title-input').val('');
 		$('.description-input').val('');
-		console.log(blog.toJSON());
-		blogs.add(blog);
+		console.log(note.toJSON());
+		notes.add(note);
 	})
 })
