@@ -42,7 +42,8 @@ var NoteView = Backbone.View.extend({
    this.template = _.template($('.notes-list-template').html());
  },
 events: {
-	'click .edit-note': 'edit'
+	'click .edit-note': 'edit',
+	'click .update-note': 'update'
 },
 
  edit: function () {
@@ -62,6 +63,13 @@ events: {
 
 
  },
+
+ update: function () {
+ 	this.model.set('author', $('.author-update').val());
+ 	this.model.set('title' , $('.title-update').val());
+ 	this.model.set('description' , $('.description-update').val());
+ },
+
  render: function () {
  	this.$el.html(this.template(this.model.toJSON()));
  	return this;
@@ -76,7 +84,13 @@ var NotesView = Backbone.View.extend({
 model: notes,
 el: $('.notes-list'),
 initialize: function() {
+	var self = this;
 	this.model.on('add', this.render, this);
+	this.model.on('change', function() {
+		setTimeout(function() {
+			self.render();
+		}, 30)
+	})
 },
 
 render: function() {
