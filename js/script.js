@@ -43,14 +43,16 @@ var NoteView = Backbone.View.extend({
  },
 events: {
 	'click .edit-note': 'edit',
-	'click .update-note': 'update'
+	'click .update-note': 'update',
+	'click .cancel-note': 'cancel',
+	'click .delete-note': 'delete'
 },
 
  edit: function () {
  	$('.edit-note').hide();
  	$('.delete-note').hide();
- 	$('.update-note').show();
- 	$('.cancel-note').show();
+ 	this.$('.update-note').show();
+ 	this.$('.cancel-note').show();
 
  	var author = this.$('.author').html();
  	var title = this.$('.title').html();
@@ -69,6 +71,15 @@ events: {
  	this.model.set('title' , $('.title-update').val());
  	this.model.set('description' , $('.description-update').val());
  },
+
+cancel: function() {
+      notesView.render(); 
+},
+
+delete: function () {
+
+	this.model.destroy();
+},
 
  render: function () {
  	this.$el.html(this.template(this.model.toJSON()));
@@ -90,7 +101,8 @@ initialize: function() {
 		setTimeout(function() {
 			self.render();
 		}, 30)
-	})
+	},this);
+	this.model.on('remove', this.render, this)
 },
 
 render: function() {
