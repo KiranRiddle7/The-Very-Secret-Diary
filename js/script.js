@@ -51,6 +51,16 @@ events: {
  	$('.update-note').show();
  	$('.cancel-note').show();
 
+ 	var author = this.$('.author').html();
+ 	var title = this.$('.title').html();
+ 	var description = this.$('.description').html();
+
+ 	this.$('.author').html('<input type="text" class="form-control author-update"  value="' + author + '"> ')
+ 	this.$('.title').html('<input type="text" class="form-control title-update"  value="' + title + '"> ')
+ 	this.$('.description').html('<input type="text" class="form-control description-update"  value="' + description + '"> ')
+
+
+
  },
  render: function () {
  	this.$el.html(this.template(this.model.toJSON()));
