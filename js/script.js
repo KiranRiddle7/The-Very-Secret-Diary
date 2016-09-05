@@ -41,7 +41,17 @@ var NoteView = Backbone.View.extend({
  initialize: function () {
    this.template = _.template($('.notes-list-template').html());
  },
+events: {
+	'click .edit-note': 'edit'
+},
 
+ edit: function () {
+ 	$('.edit-note').hide();
+ 	$('.delete-note').hide();
+ 	$('.update-note').show();
+ 	$('.cancel-note').show();
+
+ },
  render: function () {
  	this.$el.html(this.template(this.model.toJSON()));
  	return this;
