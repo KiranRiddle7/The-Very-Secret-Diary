@@ -1,0 +1,26 @@
+body { 
+
+background-image: url("img/bg.png");
+background-repeat: no-repeat;
+-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#title {
+	font-family: 'Satisfy', cursive;
+
+}
+
+#table-head {
+	font-family: 'Yatra One', cursive;
+	font-size: 15px;
+}
+
+.author, .title, .description {
+
+font-family: 'Ubuntu', sans-serif;
+	font-size: 15px;
+
+}
